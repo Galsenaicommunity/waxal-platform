@@ -2,7 +2,7 @@
   "name": "voice-web",
   "version": "1.0.0",
   "license": "MPL-2.0",
-  "repository": "mozilla/voice-web",
+  "repository": "https://gitlab.baamtu.com/sambman/common-voice-admin",
   "private": true,
   "dependencies": {
     "fluent-syntax": "^0.14.0",
