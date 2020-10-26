@@ -16,7 +16,7 @@ xcuserdata/
 ZZidea
 
 #For dev effects
-server/data/
+server/data/*
 
 
 # Nubis
