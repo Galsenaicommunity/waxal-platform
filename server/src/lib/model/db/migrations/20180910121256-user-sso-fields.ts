@@ -3,7 +3,7 @@ export const up = async function (db: any): Promise<any> {
     `
       ALTER TABLE user_clients
         ADD COLUMN sso_id VARCHAR(255) UNIQUE,
-        ADD COLUMN username TEXT NOT NULL,
+        ADD COLUMN username VARCHAR(1000) NOT NULL DEFAULT '',
         ADD COLUMN basket_token TEXT;
     `
   );

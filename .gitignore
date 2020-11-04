@@ -15,10 +15,6 @@ xcuserdata/
 .vscode/
 ZZidea
 
-#For dev effects
-server/data/*
-
-
 # Nubis
 nubis/librarian-puppet.tar.gz
 nubis/librarian-puppet
