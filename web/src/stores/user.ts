@@ -13,6 +13,7 @@ export namespace User {
     privacyAgreed: boolean;
     recordTally: number;
     validateTally: number;
+    allUsers: number;
 
     userClients: UserClient[];
     isFetchingAccount: boolean;
@@ -29,6 +30,7 @@ export namespace User {
       privacyAgreed: false,
       recordTally: 0,
       validateTally: 0,
+      allUsers: 0,
 
       userClients: [],
       isFetchingAccount: true,
@@ -40,6 +42,7 @@ export namespace User {
     UPDATE = 'UPDATE_USER',
     TALLY_RECORDING = 'TALLY_RECORDING',
     TALLY_VERIFICATION = 'TALLY_VERIFICATION',
+    ALL_USERS = 'ALL_USERS',
   }
 
   interface UpdateAction {
@@ -55,10 +58,15 @@ export namespace User {
     type: ActionType.TALLY_VERIFICATION;
   }
 
+  interface AllUsers {
+    type: ActionType.ALL_USERS;
+  }
+
   export type Action =
     | UpdateAction
     | TallyRecordingAction
-    | TallyVerificationAction;
+    | TallyVerificationAction
+    | AllUsers;
 
   export const actions = {
     update: (state: Partial<State>): UpdateAction => ({
@@ -69,6 +77,22 @@ export namespace User {
     tallyRecording: (): TallyRecordingAction => ({
       type: ActionType.TALLY_RECORDING,
     }),
+
+    allUsers: () => async (
+      dispatch: Dispatch<AllUsers>,
+      getState: () => StateTree
+    ) => {
+      const { api } = getState();
+      dispatch({
+        type: ActionType.ALL_USERS,
+        state: { isFetchingAccount: true },
+      });
+      const [allUsers] = await Promise.all([api.fetchAllUsers()]);
+      dispatch({
+        type: ActionType.ALL_USERS,
+        state: { allUsers, isFetchingAccount: false },
+      });
+    },
 
     tallyVerification: (): TallyVerificationAction => ({
       type: ActionType.TALLY_VERIFICATION,
@@ -149,6 +173,9 @@ export namespace User {
 
       case ActionType.TALLY_VERIFICATION:
         return { ...state, validateTally: state.validateTally + 1 };
+
+      case ActionType.ALL_USERS:
+        return { ...state, allUsers: state.allUsers + 1 };
 
       default:
         return state;

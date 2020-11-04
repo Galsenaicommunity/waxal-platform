@@ -5,6 +5,7 @@ import { isContributable, useLocale } from '../locale-helpers';
 import DocumentPage from '../pages/document-page';
 import { Spinner } from '../ui/ui';
 import { LoginFailure, LoginSuccess } from '../pages/login';
+import Admin from '../pages/admin/admin';
 const HomePage = React.lazy(() => import('../pages/home/home'));
 const DatasetsPage = React.lazy(() => import('../pages/datasets/datasets'));
 const LanguagesPages = React.lazy(() => import('../pages/languages/languages'));
@@ -145,6 +146,7 @@ export default function Content({ location }: { location: any }) {
               return <Redirect to={toLocaleRoute(URLS.LISTEN)} />;
             }}
           />
+          <Route exact path={toLocaleRoute(URLS.ADMIN)} component={Admin} />
           <Redirect
             push
             to={{
