@@ -72,6 +72,7 @@ export default class API {
       response.redirect('/');
     });
 
+    router.get('/all_users', this.getAllUsers);
     router.get('/user_clients', this.getUserClients);
     router.post('/user_clients/:client_id/claim', this.claimUserClient);
     router.get('/user_client', this.getAccount);
@@ -200,6 +201,13 @@ export default class API {
         email,
         client_id,
       })),
+    ];
+    response.json(userClients);
+  };
+
+  getAllUsers = async (request: Request, response: Response) => {
+    const userClients: UserClientType[] = [
+      ...(await UserClient.findAllUsers()),
     ];
     response.json(userClients);
   };

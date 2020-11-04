@@ -159,6 +159,25 @@ const UserClient = {
     );
   },
 
+  async findAllUsers() {
+    const [rows] = await db.query(
+      `
+        SELECT u.*, accents.accent, locales.name AS locale, ages.age, genders.gender
+        FROM user_clients u
+        LEFT JOIN user_client_accents accents on u.client_id = accents.client_id
+        LEFT JOIN locales on accents.locale_id = locales.id
+        -- TODO: This subquery is VERY awkward, but safer until we simplify
+        --       accent grouping.
+        LEFT JOIN demographics d ON u.client_id = d.client_id AND u.has_login		
+        LEFT JOIN ages on d.age_id = ages.id
+        LEFT JOIN genders on d.gender_id = genders.id
+        ORDER BY d.updated_at DESC
+      `,
+      []
+    );
+    return rows; //temporary solution
+  },
+
   async findAccount(email: string): Promise<UserClientType> {
     const [rows] = await db.query(
       `

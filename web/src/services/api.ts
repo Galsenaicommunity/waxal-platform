@@ -237,6 +237,10 @@ export default class API {
     return this.fetch(API_PATH + '/user_clients');
   }
 
+  fetchAllUsers(): Promise<UserClient[]> {
+    return this.fetch(API_PATH + '/all_users');
+  }
+
   fetchAccount(): Promise<UserClient> {
     return this.fetch(API_PATH + '/user_client');
   }
