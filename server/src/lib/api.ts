@@ -222,6 +222,8 @@ export default class API {
 
   getAccount = async ({ user }: Request, response: Response) => {
     let userData = null;
+    let roles = user?._json['http://localhost:9000/roles'];
+    console.log('roles: ', roles);
     if (user) {
       userData = await UserClient.findAccount(user.emails[0].value);
     }
@@ -231,8 +233,7 @@ export default class API {
         userData.avatar_clip_url
       );
     }
-
-    response.json(user ? userData : null);
+    response.json(user ? { ...userData, roles: roles } : null);
   };
 
   subscribeToNewsletter = async (request: Request, response: Response) => {

@@ -18,4 +18,5 @@ export type UserClient = {
   awards?: any[];
   custom_goals?: CustomGoal[];
   enrollment?: Enrollment;
+  roles?: string[];
 };

@@ -119,6 +119,7 @@ declare const ga: any;
 let prevUser: User.State = null;
 store.subscribe(async () => {
   const { locale, user } = store.getState();
+  const roles = user.account.roles; // getting roles from Auth0
 
   if (
     typeof ga === 'function' &&
@@ -144,6 +145,7 @@ store.subscribe(async () => {
 
   localStorage[USER_KEY] = JSON.stringify({
     ...user,
+    roles: roles,
     account: null,
     isFetchingAccount: true,
   });

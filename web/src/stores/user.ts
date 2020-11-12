@@ -18,7 +18,6 @@ export namespace User {
     userClients: UserClient[];
     isFetchingAccount: boolean;
     account: UserClient;
-    roles: string[];
   }
 
   function getDefaultState(): State {
@@ -36,7 +35,6 @@ export namespace User {
       userClients: [],
       isFetchingAccount: true,
       account: null,
-      roles: ['user'],
     };
   }
 

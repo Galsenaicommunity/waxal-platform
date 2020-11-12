@@ -208,7 +208,6 @@ export async function authMiddleware(
     const accountClientId = await UserClient.findClientId(
       request.user.emails[0].value
     );
-    // console.log(request.user._raw);
 
     if (accountClientId) {
       request.client_id = accountClientId;
