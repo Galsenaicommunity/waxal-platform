@@ -146,7 +146,7 @@ export default class DB {
         SELECT COUNT(*) AS count, locales.name AS locale
         FROM sentences
         LEFT JOIN locales ON sentences.locale_id = locales.id
-        WHERE locales.name IN (?) AND sentences.is_used
+        -- WHERE locales.name IN (?) AND sentences.is_used
         GROUP BY locale
       `,
       [locales]

@@ -10,6 +10,7 @@ import UserClient from './lib/model/user-client';
 import DB from './lib/model/db';
 import { earnBonus } from './lib/model/achievements';
 import { getConfig } from './config-helper';
+const clogUtil = require('util');
 
 const {
   ENVIRONMENT,
@@ -207,6 +208,8 @@ export async function authMiddleware(
     const accountClientId = await UserClient.findClientId(
       request.user.emails[0].value
     );
+    // console.log(request.user._raw);
+
     if (accountClientId) {
       request.client_id = accountClientId;
       next();
