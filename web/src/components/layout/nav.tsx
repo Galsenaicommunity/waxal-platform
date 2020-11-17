@@ -32,6 +32,12 @@ export default ({ children, ...props }: { [key: string]: any }) => (
       </ContributableLocaleLock>
       <LocalizedNavLink id="datasets" to={URLS.DATASETS} />
       <LocalizedNavLink id="languages" to={URLS.LANGUAGES} />
+      {JSON.parse(localStorage.getItem('userdata'))?.roles.indexOf('admin') !==
+        -1 && <LocalizedNavLink id="admin" to={URLS.ADMIN} />}
+      {JSON.parse(localStorage.getItem('userdata'))?.roles.indexOf('admin') !==
+        -1 && (
+        <LocalizedNavLink id="leaderboard" to={URLS.ADMIN + '/leaderboard'} />
+      )}
       <LocalizedNavLink id="about" to={URLS.ABOUT} />
     </div>
     {children}

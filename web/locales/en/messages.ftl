@@ -29,6 +29,7 @@ as = Assamese
 ast = Asturian
 az = Azerbaijani
 ba = Bashkir
+bas = Basaa
 be = Belarusian
 bg = Bulgarian
 bm = Bambara
@@ -164,6 +165,8 @@ share-text = Help teach machines how real people speak, donate your voice at { $
 link-copied = Link Copied
 back-top = Back to Top
 logout = Log Out
+admin = Admins
+leaderboard = Leaderboard
 
 ## Home Page
 home-title =
