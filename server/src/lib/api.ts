@@ -225,15 +225,17 @@ export default class API {
     let roles = user?._json['http://localhost:9000/roles'];
     if (user) {
       userData = await UserClient.findAccount(user.emails[0].value);
-      userData.roles = roles;
+      if (userData) {
+        userData.roles = roles;
+      }
     }
 
     if (userData !== null && userData.avatar_clip_url !== null) {
       userData.avatar_clip_url = await this.bucket.getAvatarClipsUrl(
         userData.avatar_clip_url
       );
+      userData.roles = roles;
     }
-    console.log('userData: ', userData);
     response.json(user ? userData : null);
   };
 
