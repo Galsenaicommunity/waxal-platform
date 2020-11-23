@@ -10,11 +10,12 @@ import URLS from '../../../urls';
 import DataTable from 'react-data-table-component';
 
 // The row data is composed into your custom expandable component via the data prop
-const ExpandableComponent = (data: any) => (
+const ExpandableComponent = ({ data }: any) => (
   <div>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia unde eum
-    alias possimus esse non odio ad vero dignissimos nesciunt? Cupiditate omnis
-    laudantium facilis sunt, temporibus laboriosam ad iste eaque.
+    <div>
+      <div style={{ fontWeight: 700 }}>{data.username}</div>
+      {data.age}
+    </div>
   </div>
 );
 
@@ -67,6 +68,10 @@ export default function Admin() {
       title="Utilisateurs"
       columns={columns}
       data={data}
+      fixedHeader
+      fixedHeaderScrollHeight="50vh"
+      striped
+      pagination
       expandableRows
       expandableRowsComponent={<ExpandableComponent />}
     />

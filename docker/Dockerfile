@@ -1,6 +1,6 @@
 FROM node:10-stretch
 
-ARG MAINTAINER="Alberto del Barrio <alberto@mozilla.com>"
+ARG MAINTAINER="Mohamed Samb <mohamed.samb@baamtu.com>"
 ARG BRANCH="master"
 ARG COMMIT="local-build"
 ARG TAG=""
