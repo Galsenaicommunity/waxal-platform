@@ -1,4 +1,25 @@
 export const ACCENTS: any = {
+  dio: {
+    senegal: 'Diola du Senegal',
+  },
+  wol: {
+    senegal: 'Wolof du Senegal',
+  },
+  ser: {
+    senegal: 'Serere du Senegal',
+  },
+  pol: {
+    senegal: 'Poular du Senegal',
+    mali: 'Poular du Mali',
+  },
+  son: {
+    senegal: 'Soninke du Senegal',
+    mali: 'Soninke du Mali',
+  },
+  man: {
+    senegal: 'Mandingue du Senegal',
+    mali: 'Mandingue du Mali',
+  },
   br: {
     gwenedeg: 'Gwenedeg',
     kerneveg: 'Kerneveg',
