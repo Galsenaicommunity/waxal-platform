@@ -41,6 +41,10 @@ export default function LanguageStats() {
       title="Language leaderborad"
       columns={columns}
       data={data.launched}
+      fixedHeader
+      fixedHeaderScrollHeight="50vh"
+      striped
+      pagination
     />
   );
 }

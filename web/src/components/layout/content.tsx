@@ -8,8 +8,6 @@ import { LoginFailure, LoginSuccess } from '../pages/login';
 import Admin from '../pages/admin/admin';
 import LanguageStats from '../pages/admin/language-stats/language-stats';
 const HomePage = React.lazy(() => import('../pages/home/home'));
-const DatasetsPage = React.lazy(() => import('../pages/datasets/datasets'));
-const LanguagesPages = React.lazy(() => import('../pages/languages/languages'));
 const DashboardPage = React.lazy(() => import('../pages/dashboard/dashboard'));
 const ProfileLayoutPage = React.lazy(() => import('../pages/profile/layout'));
 const FAQPage = React.lazy(() => import('../pages/faq/faq'));
@@ -42,18 +40,8 @@ export default function Content({ location }: { location: any }) {
           />
           <Route
             exact
-            path={toLocaleRoute(URLS.LANGUAGES)}
-            component={LanguagesPages}
-          />
-          <Route
-            exact
             path={toLocaleRoute(URLS.DATA)}
             render={() => <Redirect to={toLocaleRoute(URLS.DATASETS)} />}
-          />
-          <Route
-            exact
-            path={toLocaleRoute(URLS.DATASETS)}
-            component={DatasetsPage}
           />
           <Route
             exact
