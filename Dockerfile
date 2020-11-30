@@ -1,21 +1,21 @@
-FROM node:10-stretch
+FROM debian:stable
 
-ARG MAINTAINER="Mohamed Samb <mohamed.samb@baamtu.com>"
-ARG BRANCH="master"
-ARG COMMIT="local-build"
-ARG TAG=""
-ARG REPO="local"
-
-LABEL branch=${BRANCH}
-LABEL commit=${COMMIT}
-LABEL tag=$TAG
-LABEL repo=https://github.com/${REPO}
-LABEL maintainer=${MAINTAINER}
-
-MAINTAINER ${MAINTAINER}
+RUN apt update --fix-missing -y
+RUN apt install curl -y
+RUN apt install python3-pip -y
+RUN apt install python3 -y
+RUN echo 'alias python=python3'  >> ~/.bashrc
 
 # Allow exposing HTTP endpoint
 EXPOSE 9000
+
+WORKDIR /app
+
+# AWS configuration
+RUN pip3 install awscli --upgrade
+COPY configure_aws.sh /usr/local/bin/
+RUN ln -s /usr/local/bin/configure_aws.sh
+RUN chmod +x /usr/local/bin/configure_aws.sh
 
 # Add project source
 COPY . /code
@@ -26,6 +26,11 @@ WORKDIR /code
 # Create directory for storing logs
 RUN mkdir /code/logs
 
+# install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt install nodejs -y
+
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y apt-transport-https && \
@@ -34,10 +39,6 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install --no-install-recommends -y yarn ffmpeg
 
-ENV GIT_COMMIT_SHA=${COMMIT}
-ENV GIT_COMMIT_BRANCH=${BRANCH}
-ENV GIT_SLUG=${REPO}
-
 # Install yarn dependencies
 RUN yarn
 
@@ -45,4 +46,4 @@ RUN yarn
 RUN yarn build
 
 # Default command to start the server
-CMD yarn start 2>&1 | tee /code/logs/voice-server.log
+CMD /usr/local/bin/configure_aws.sh && yarn start 2>&1 | tee /code/logs/voice-server.log
