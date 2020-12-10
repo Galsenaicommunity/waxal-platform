@@ -20,7 +20,7 @@ const ExpandableComponent = ({ data }: any) => (
 );
 
 let data: [any];
-const API_HOST = 'http://localhost:9000/api/v1';
+const API_HOST = location.origin + '/api/v1';
 const data2 = fetch(API_HOST + '/all_users')
   .then(response => response.json())
   .then(js_resp => {

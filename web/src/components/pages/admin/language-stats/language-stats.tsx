@@ -7,7 +7,7 @@ import { UserClient } from 'common';
 import DataTable from 'react-data-table-component';
 
 let data: any;
-const API_HOST = 'http://localhost:9000/api/v1';
+const API_HOST = location.origin + '/api/v1';
 const data2 = fetch(API_HOST + '/language_stats')
   .then(response => response.json())
   .then(js_resp => {
