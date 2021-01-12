@@ -55,9 +55,6 @@ function ChallengeOffline({
         <h1 className="challenge-header">
           While you wait for the next one, create a custom goal!
         </h1>
-        <LinkButton className="custom-goal-button" rounded to={URLS.GOALS}>
-          Create a custom goal
-        </LinkButton>
       </div>
     </div>
   );

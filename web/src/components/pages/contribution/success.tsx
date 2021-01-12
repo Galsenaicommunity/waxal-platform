@@ -153,9 +153,6 @@ function Success({
               vars={{ hours: 10000, language: getString(locale) }}>
               <p />
             </Localized>
-            <Localized id="get-started-goals">
-              <LinkButton rounded href={URLS.GOALS} />
-            </Localized>
           </div>
         )
       ) : (

@@ -13,8 +13,6 @@ import {
 } from '../../locale-helpers';
 import { Notifications } from '../../../stores/notifications';
 import StatsPage from './stats/stats';
-import GoalsPage from './goals/goals';
-import AwardsPage from './awards/awards';
 import ChallengePage from './challenge/challenge';
 import { Button } from '../../ui/ui';
 import InviteModal from '../../invite-modal/invite-modal';
@@ -92,10 +90,7 @@ const TopBar = ({
               <h2>Challenge</h2>
             </LocaleNavLink>
           )}
-          {[
-            ['stats', URLS.STATS],
-            ['goals', URLS.GOALS],
-          ].map(([label, path]) => (
+          {[['stats', URLS.STATS]].map(([label, path]) => (
             <LocaleNavLink
               key={path}
               to={
@@ -108,23 +103,6 @@ const TopBar = ({
               </Localized>
             </LocaleNavLink>
           ))}
-          <LocaleNavLink
-            to={
-              URLS.DASHBOARD +
-              (dashboardLocale ? '/' + dashboardLocale : '') +
-              URLS.AWARDS
-            }>
-            <h2>
-              <Localized id="awards">
-                <span />
-              </Localized>{' '}
-              {unseenAwards > 0 && (
-                <span className="badge">
-                  {unseenAwards > 9 ? '9+' : unseenAwards}
-                </span>
-              )}
-            </h2>
-          </LocaleNavLink>
         </nav>
         {isChallengeTabSelected ? (
           <div className="language challenge-language">
@@ -185,9 +163,6 @@ const TopBar = ({
           </div>
         )}
       </div>
-      {isChallengeTabSelected && (
-        <ChallengeBar setShowInviteModal={setShowInviteModal} />
-      )}
     </div>
   );
 };
@@ -196,11 +171,7 @@ function DashboardContent({
   Page,
   dashboardLocale,
 }: {
-  Page:
-    | typeof ChallengePage
-    | typeof StatsPage
-    | typeof GoalsPage
-    | typeof AwardsPage;
+  Page: typeof ChallengePage | typeof StatsPage;
   dashboardLocale: string;
 }) {
   const api = useAPI();
@@ -216,34 +187,6 @@ function DashboardContent({
 interface ChallengeBarProps {
   setShowInviteModal(arg: any): void;
 }
-const ChallengeBar = ({ setShowInviteModal }: ChallengeBarProps) => {
-  const api = useAPI();
-  const [points, setAllPoints] = useState({ user: 0, team: 0 });
-
-  useEffect(() => {
-    api.fetchChallengePoints().then(value => value && setAllPoints(value));
-    // TODO: investigate how this interacts with asynchronous user loading
-  }, []);
-  return (
-    <div className="challenge-bar">
-      {isChallengeLive(pilotDates) && (
-        <div className="points">
-          <img src={require('./awards/star.svg')} alt="score" />
-          <span className="score">{points.user}</span>
-          <span className="label label-my">My points</span>
-        </div>
-      )}
-
-      <Button
-        rounded
-        className="invite-btn"
-        onClick={() => setShowInviteModal(true)}>
-        <span className="content">Invite</span>
-        <span className="plus-icon"></span>
-      </Button>
-    </div>
-  );
-};
 
 export default function Dashboard() {
   const { match } = useRouter();
@@ -253,11 +196,7 @@ export default function Dashboard() {
   const [showInviteModal, setShowInviteModal] = useState<boolean>(false);
   const addAchievement = useAction(Notifications.actions.addAchievement);
   const isChallengeEnrolled = isEnrolled(account);
-  const pages = [
-    { subPath: URLS.STATS, Page: StatsPage },
-    { subPath: URLS.GOALS, Page: GoalsPage },
-    { subPath: URLS.AWARDS, Page: AwardsPage },
-  ];
+  const pages = [{ subPath: URLS.STATS, Page: StatsPage }];
   let defaultPage = URLS.STATS;
   if (isChallengeEnrolled) {
     // @ts-ignore

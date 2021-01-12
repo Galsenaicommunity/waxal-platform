@@ -82,29 +82,6 @@ export default function ProgressCard({
         <Localized id={isSpeak ? 'clips-you-recorded' : 'clips-you-validated'}>
           <div className="description" />
         </Localized>
-        <div className="custom-goal-section">
-          {customGoal && hasCustomGoalForThis ? (
-            <LocaleLink className="custom-goal-link" to={goalsPath}>
-              <CircleProgress value={currentCustomGoal / customGoal.amount} />
-              <div className="custom-goal-text">
-                <Localized
-                  id={
-                    currentCustomGoal / customGoal.amount < 1
-                      ? 'toward-next-goal'
-                      : 'goal-reached'
-                  }>
-                  <span />
-                </Localized>
-              </div>
-            </LocaleLink>
-          ) : (
-            !customGoal && (
-              <Localized id="create-custom-goal">
-                <LinkButton rounded to={goalsPath} />
-              </Localized>
-            )
-          )}
-        </div>
       </div>
 
       <div className="progress-wrap">
