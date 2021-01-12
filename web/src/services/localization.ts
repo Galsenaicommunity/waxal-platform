@@ -12,7 +12,7 @@ import { isProduction } from '../utility';
 import API from './api';
 import MessageOverwrites = Flags.MessageOverwrites;
 
-export const DEFAULT_LOCALE = 'en';
+export const DEFAULT_LOCALE = 'wol';
 export const LOCALES = isProduction()
   ? (translatedLocales as string[])
   : locales;
