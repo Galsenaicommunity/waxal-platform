@@ -167,6 +167,8 @@ share-text = Aidez les machines à apprendre à parler comme de vraies personnes
 link-copied = Lien copié
 back-top = Haut de la page
 logout = Déconnexion
+admin = Admins
+leaderboard = Leaderboard
 
 ## Home Page
 
