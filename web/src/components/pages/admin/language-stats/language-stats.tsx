@@ -49,7 +49,7 @@ export default function LanguageStats() {
   );
   return (
     <DataTable
-      title="Language leaderborad"
+      title="Language leaderboard"
       columns={columns}
       data={data_outputs}
       fixedHeader
