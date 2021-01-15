@@ -19,6 +19,7 @@ import Model from './model';
 import Prometheus from './prometheus';
 import { ClientParameterError } from './utility';
 import Challenge from './challenge';
+import { getFullLocalesLeaderboard } from './model/leaderboard';
 import { FeatureToken, FeatureType, features } from 'common';
 
 const Transcoder = require('stream-transcoder');
@@ -110,6 +111,8 @@ export default class API {
 
     router.get('/language_stats', this.getLanguageStats);
 
+    router.get('/language_leaderboard', this.getLanguageLeaderBoard);
+
     router.post('/newsletter/:email', this.subscribeToNewsletter);
 
     router.post('/:locale/downloaders', this.insertDownloader);
@@ -185,6 +188,10 @@ export default class API {
 
   getLanguageStats = async (request: Request, response: Response) => {
     response.json(await this.model.getLanguageStats());
+  };
+
+  getLanguageLeaderBoard = async (request: Request, response: Response) => {
+    response.json(await getFullLocalesLeaderboard());
   };
 
   getUserClients = async ({ client_id, user }: Request, response: Response) => {

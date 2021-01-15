@@ -8,6 +8,7 @@ import Bucket from '../bucket';
 import { AWS } from '../aws';
 import Model from '../model';
 import { ChallengeLeaderboardArgument, ChallengeToken } from 'common';
+const locales = require('locales/all.json') as string[];
 
 const s3 = AWS.getS3();
 const model = new Model();
@@ -56,6 +57,52 @@ async function getVoteLeaderboard(locale?: string): Promise<any[]> {
   );
 
   return rows;
+}
+
+async function getLocalesLeaderboard(): Promise<any[]> {
+  const [clips_rows] = await db.query(
+    `
+      SELECT clips.locale_id,
+          locales.name,
+          COUNT(clips.id) AS total_clips
+      FROM user_clients
+      LEFT JOIN clips ON user_clients.client_id = clips.client_id
+      LEFT JOIN locales ON locales.id = clips.locale_id
+
+      GROUP BY clips.locale_id
+      HAVING total_clips > 0
+      ORDER BY total_clips DESC
+    `
+  );
+
+  const [votes_rows] = await db.query(
+    `
+      SELECT clips.locale_id,
+        locales.name,
+        count(votes.id) as total_votes
+    FROM user_clients
+    LEFT JOIN votes ON user_clients.client_id = votes.client_id
+    LEFT JOIN clips ON votes.clip_id = clips.id
+    LEFT JOIN locales ON locales.id = clips.locale_id
+    GROUP BY clips.locale_id
+    HAVING total_votes > 0
+    ORDER BY total_votes DESC
+    `
+  );
+
+  const locales_leaderboard = locales.map((l: string) => {
+    let currentLocale = {};
+    currentLocale = {
+      locale: l,
+      clip_count:
+        clips_rows.filter((crow: any) => crow.name == l)[0]?.total_clips || 0,
+      vote_count:
+        votes_rows.filter((vrow: any) => vrow.name == l)[0]?.total_votes || 0,
+    };
+    return currentLocale;
+  });
+
+  return locales_leaderboard;
 }
 
 // NOTE: The top-related SQLs
@@ -212,6 +259,14 @@ export const getFullVoteLeaderboard = lazyCache(
       position: i,
       ...row,
     }));
+  },
+  CACHE_TIME_MS
+);
+
+export const getFullLocalesLeaderboard = lazyCache(
+  'locales-leaderboard',
+  async () => {
+    return await getLocalesLeaderboard();
   },
   CACHE_TIME_MS
 );
