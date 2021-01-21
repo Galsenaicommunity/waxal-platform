@@ -144,7 +144,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutState> {
     challengeToken: undefined,
     isMenuVisible: false,
     hasScrolled: false,
-    showStagingBanner: !isProduction(),
+    showStagingBanner: false,
     showWelcomeModal: false,
     featureStorageKey: null,
   };
