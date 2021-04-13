@@ -1,10 +1,10 @@
 ## Common Voice [![Travis Status](https://travis-ci.org/mozilla/common-voice.svg?branch=main)](https://travis-ci.org/mozilla/common-voice)
 
-This is the web app for Mozilla Common Voice, a platform for collecting speech donations in order to create public domain datasets for training voice recognition-related tools.
+This is waxal a web app built from Common Voice an Open Source plateform, Waxal is dedicated for collecting speech data on Senegalese local languages in order to create public datasets for training trigger words detection models.
 
 ### Official Website
 
-[commonvoice.mozilla.org](https://commonvoice.mozilla.org)
+[waxal.galsen.ai](https://waxal.galsen.ai)
 
 ### Code of Conduct
 
